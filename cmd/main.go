@@ -6,12 +6,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
-	"log"
-    "path/filepath"
-	"net/http"
+
 	"github.com/atotto/clipboard"
 )
 
@@ -105,7 +106,7 @@ func main() {
 	commandResult := string(result)
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("Do you want to run: %s ? [Y/n] ", commandResult)
+	fmt.Printf("Do you want to run: \033[32m%s\033[0m ? [Y/n] ", commandResult)
 
 	response, _ := reader.ReadString('\n')
 	response = strings.ToLower(strings.TrimSpace(response))

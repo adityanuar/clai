@@ -17,5 +17,5 @@ def read_root():
 
 @app.post("/suggest/")
 def suggest(prompt: Prompt):
-    response = prompter.prompt_main(str(prompt.content) + "? answer with one actionable command only without description", context="", prompt_name="default_with_context", temperature=0.9)
+    response = prompter.prompt_main(str(prompt.content) + "? answer with actionable commands only without description", context="", prompt_name="default_with_context", temperature=0.9)
     return {"result": f"{response['llm_response']}"}
