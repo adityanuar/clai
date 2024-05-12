@@ -1,1 +1,3 @@
 cmd/main
+clai_pythonenv/*
+server/__pycache__/*
