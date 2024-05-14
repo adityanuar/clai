@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -11,7 +12,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"time"
 
 	"github.com/atotto/clipboard"
 )
@@ -59,7 +62,23 @@ func main() {
         return
     }
 
-	fmt.Println("Server URL: ", serverURL)
+	ctx, cancel := context.WithCancel(context.Background())
+
+    // Start the animation in a goroutine
+    go func(ctx context.Context) {
+        loop:
+        for {
+            for i := 0; i < 3; i++ {
+                select {
+                case <-ctx.Done():
+                    break loop
+                default:
+                    fmt.Printf("\rThinking%s", strings.Repeat(".", i+1))
+                    time.Sleep(1 * time.Second)
+                }
+            }
+        }
+    }(ctx)
 
 	if len(os.Args) < 2 {
 		fmt.Println("Please provide a command.")
@@ -69,8 +88,10 @@ func main() {
 	command := strings.Join(os.Args[1:], " ")
 
 	// Create a map to hold the JSON body data
+	operatingSystem := runtime.GOOS
     data := map[string]string{
         "content": command,
+		"os": operatingSystem,
     }
 	// Marshal the map into JSON
     jsonData, err := json.Marshal(data)
@@ -105,6 +126,9 @@ func main() {
 
 	commandResult := string(result)
 
+	fmt.Println()
+	cancel()
+
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Do you want to run: \033[32m%s\033[0m ? [Y/n] ", commandResult)
 
@@ -129,7 +153,7 @@ func main() {
 			}
 			fmt.Println("Command is a built in shell and can't be executed within this program, but rest assured it has been copied to your clipboard. Please paste it and execute it in your terminal.")
 		} else {
-			cmd := exec.Command(parts[0], parts[1:]...)
+			cmd := exec.Command("sh", "-c", commandResult)
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
 			if err := cmd.Run(); err != nil {
