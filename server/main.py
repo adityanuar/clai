@@ -3,6 +3,10 @@ from pydantic import BaseModel
 from llmware.prompts import Prompt
 import re
 
+# Load the model, can be:
+# 1. llmware/dragon-yi-6b-gguf
+# 2. llmware/bling-phi-3-gguf
+# etc
 model_name = "llmware/dragon-yi-6b-gguf"
 prompter = Prompt().load_model(model_name)
 
