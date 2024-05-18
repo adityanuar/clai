@@ -3,11 +3,11 @@ Clai is an open-source CLI tool powered by AI that assists in providing CLI comm
 # Preview 📷
 should be gif image
 # Usage 🎚️
-## Requirements
+## Requirements 🛠️
 Tested on:
 - Golang 1.22.3
 - Python 3.10.12
-## Running
+## Running 🏃‍♂️
 ### Server:
 The server is used to perform inference for command suggestions from the AI model we utilize.
 - It is highly recommended to use a virtual environment in Python. For example: `python -m venv [your-venv-name]`.
