@@ -1,5 +1,5 @@
 # Clai
-Clai is an open-source CLI tool powered by AI that assists in providing CLI command suggestions using natural language. This tool utilizes open-source models and can be self-hosted, making it highly customizable and privacy-friendly. It is particularly relevant for corporate environments where the confidentiality of internal tools is paramount. Huge thanks to [LLMWare](https://llmware.ai) for providing the tools and LLM models, making all this possible.
+Clai is an open-source CLI tool powered by AI that assists in providing CLI command suggestions using natural language. This tool utilizes open-source models and can be self-hosted, making it highly customizable and privacy-friendly. It is particularly relevant for enterprise environments where the confidentiality of internal tools is paramount. Huge thanks to [LLMWare](https://llmware.ai) for providing the tools and LLM models, making all this possible.
 # Preview
 should be gif image
 # Usage
