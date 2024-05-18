@@ -15,6 +15,7 @@ app = FastAPI()
 class Prompt(BaseModel):
     content: str
     os: str
+    shell: str
 
 @app.get("/")
 def read_root():
@@ -23,7 +24,8 @@ def read_root():
 
 @app.post("/suggest/")
 def suggest(prompt: Prompt):
-    print(prompt.os)
-    response = prompter.prompt_main('shell command to ' + str(prompt.content) + "? answer with first one actionable commands only without description", context=f"operating system is {prompt.os}", prompt_name="default_with_context", temperature=0.9)
-    filtered_response = re.sub(r"^\d+\.\s*", "", response['llm_response'])
+    response = prompter.prompt_main(f'shell command in {prompt.os} {prompt.shell} to ' + str(prompt.content) + "? answer with first one actionable commands only without description", context=f"operating system is {prompt.os}", prompt_name="default_with_context", temperature=0.9)
+    lines = response['llm_response'].split('\n')
+    first_line = next(line for line in lines if line.strip())
+    filtered_response = re.sub(r"^\d+\.\s*", "", first_line)
     return {"result": f"{filtered_response}"}
