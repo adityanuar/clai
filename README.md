@@ -17,6 +17,7 @@ The server is used to perform inference for command suggestions from the AI mode
 ### Cmd:
 In this folder, there is a client tool which is the core of this program. It can be used by invoking it directly from the shell. Developed using Golang, it is multi-platform and supports cross-compilation.
 - go to cmd folder
+- make sure your **server_url** correctly points to your server in **config.json** file
 - make sure you have all dependencies ready: `go mod tidy`
 - build the binary: `go build clai.go`
 - use it: `./clai [your query]`
